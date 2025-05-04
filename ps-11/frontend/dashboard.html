@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <div id="listDiv"></div>
+    <script>
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET","http://localhost:3090/users",true)
+        xhr.onload=function(){
+            const response = JSON.parse(xhr.responseText)
+            const users = response.users
+            users.forEach(function(user){
+                document.getElementById("listDiv").innerHTML+=`
+                    <p>Name:${user.name}</p>
+                    <p>Email:${user.email}</p>
+                    <p>Password:${user.password}</p>
+                    <hr/>
+                `
+            })
+        }
+        xhr.send()
+    </script>
+</body>
+</html>

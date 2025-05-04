@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+</head>
+<body>
+
+<h1>Weather Application</h1>
+
+<input type="text" id="cityInput" placeholder="Enter city name">
+<button onclick="getWeather()">Get Weather</button>
+
+<div id="weatherResult"></div>
+
+<script>
+// --- Weather Database ---
+const weatherDatabase = {
+    "New York": { temperature: "22°C", humidity: "60%", condition: "Sunny" },
+    "London": { temperature: "18°C", humidity: "75%", condition: "Cloudy" },
+    "Paris": { temperature: "20°C", humidity: "70%", condition: "Partly Cloudy" },
+    "Tokyo": { temperature: "25°C", humidity: "65%", condition: "Rainy" },
+    "Delhi": { temperature: "35°C", humidity: "50%", condition: "Hot" }
+};
+
+// --- Weather Fetch Function ---
+function getWeather() {
+    const city = document.getElementById('cityInput').value.trim();
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+
+            if (data[city]) {
+                const weather = data[city];
+                document.getElementById('weatherResult').innerHTML = `
+                    <h3>Weather in ${city}</h3>
+                    <p>Temperature: ${weather.temperature}</p>
+                    <p>Humidity: ${weather.humidity}</p>
+                    <p>Condition: ${weather.condition}</p>
+                `;
+            } else {
+                document.getElementById('weatherResult').innerHTML = `<p>City not found.</p>`;
+            }
+        }
+    };
+
+    // --- Instead of sending a request, we simulate the server response here
+    const fakeServerResponse = JSON.stringify(weatherDatabase);
+
+    // Simulate server delay
+    setTimeout(function() {
+        xhr.readyState = 4;
+        xhr.status = 200;
+        xhr.responseText = fakeServerResponse;
+        xhr.onreadystatechange();
+    }, 500); // 0.5 second delay to simulate real AJAX
+}
+</script>
+
+</body>
+</html>

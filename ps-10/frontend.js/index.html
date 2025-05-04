@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+</head>
+<body>
+    <h1>Todo App</h1>
+
+    <h2>Add Todo</h2>
+    <input type="text" id="title" placeholder="Title">
+    <input type="text" id="description" placeholder="Description">
+    <button onclick="addTodo()">Add Todo</button>
+
+    <h2>Todos</h2>
+    <div id="todoList"></div>
+
+    <script>
+        // Function to fetch and show todos
+        function fetchTodos() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3080/todos", true);
+            xhr.onload = function() {
+                const data = JSON.parse(xhr.responseText);
+                const todoList = document.getElementById("todoList");
+                todoList.innerHTML = ""; // Clear previous content
+
+                data.todos.forEach(todo => {
+                    const div = document.createElement("div");
+                    div.innerHTML = `
+                        <h3>${todo.title}</h3>
+                        <p>${todo.description}</p>
+                        <p>Status: ${todo.completed ? "Completed" : "Pending"}</p>
+                        ${!todo.completed ? `<button onclick="markCompleted('${todo.id}')">Mark Completed</button>` : ""}
+                        <button onclick="updateTodo('${todo.id}')">Update Todo</button>
+                        <hr/>
+                    `;
+                    todoList.appendChild(div);
+                });
+            };
+            xhr.send();
+        }
+
+        // Function to add new todo
+        function addTodo() {
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+
+            if (!title || !description) {
+                alert("Please enter both title and description!");
+                return;
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:3080/todo", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = function() {
+                alert("Todo Added!");
+                document.getElementById("title").value = "";
+                document.getElementById("description").value = "";
+                fetchTodos(); // Refresh todo list
+            };
+            xhr.send(JSON.stringify({
+                title: title,
+                description: description
+            }));
+        }
+
+        // Function to mark todo as completed
+        function markCompleted(id) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("PUT", "http://localhost:3080/todo", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = function() {
+                alert("Todo Marked Completed!");
+                fetchTodos(); // Refresh todo list
+            };
+            xhr.send(JSON.stringify({
+                id: id,
+                completed: true
+            }));
+        }
+
+        // Function to update title and description
+        function updateTodo(id) {
+            const newTitle = prompt("Enter new title:");
+            const newDescription = prompt("Enter new description:");
+
+            if (newTitle !== null && newDescription !== null) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("PUT", "http://localhost:3080/todo", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function() {
+                    alert("Todo Updated!");
+                    fetchTodos(); // Refresh todo list
+                };
+                xhr.send(JSON.stringify({
+                    id: id,
+                    title: newTitle,
+                    description: newDescription
+                }));
+            }
+        }
+
+        // Initial fetch
+        fetchTodos();
+    </script>
+</body>
+</html>

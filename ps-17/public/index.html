@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: beige;
+        }
+        .mainDiv{ 
+            color:brown;
+            border-bottom:2px solid brown;
+        }
+        .span{
+            font-weight:bold;
+        }
+        .para{
+            font-size:large;
+        }
+        .head{
+            display:flex;
+            justify-content:center;
+            border-bottom:2px dashed black;
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+    <h1>Employee Data</h1>
+    </div>
+    <div id="append"></div>
+    <script>
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET","http://localhost:3000/emp",true)
+        xhr.onload=function(){
+            const response = JSON.parse(xhr.responseText)
+            const datas = response.data
+            datas.forEach(function(data){
+                document.getElementById("append").innerHTML+=`
+                    <div class="mainDiv">
+                        <h1>${data.name}</h1> 
+                        <p class="para">Department<span class='span'>  ${data.dept}</span></p>   
+                    </div>
+                `
+            })
+        }
+        xhr.send()
+    </script>
+</body>
+</html>

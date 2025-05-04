@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .welcome{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:larger;
+            font-weight:bolder;
+        }
+        .img{
+            display:flex;
+            justify-content:center;
+            margin:20px;
+           
+        }
+        #ci{
+            width:3000px;
+        }
+    </style>
+</head>
+<body>
+    <div data-role="page" id="home">
+        <div data-role="header">
+            <h1>Aditya Bhosale's Portfolio</h1>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#about" data-transition="slide">About</a></li>
+                    <li><a href="#projects" data-transition="slide">Projects</a></li>
+                    <li><a href="#skills" data-transition="slide">Skills</a></li>
+                    <li><a href="#contact" data-transition="slide">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content" >
+            <div class="welcome">Welcome to my Portfolio</div>
+            <div class="img"><img id="ci" src="coding.jpeg"></div>
+        </div>
+    </div>
+    <div data-role="page" id="about">
+        <div data-role="header">
+            <h1>About Me</h1>
+            <a href="#home" data-icon="home"></a>
+        </div>
+        <div data-role="content">
+            <div><p>A passionate and curious learner with a strong interest in technology, development, and innovation. 
+                I love turning ideas into reality through code and design. 
+                Welcome to my portfolio — here you'll find my projects, skills, and ways to connect!</p></div>
+            <div data-role="collapsible">
+                <h1>Schooling</h1>
+                <p>Completed from :- <i>Kolhapur Public School</i></p>
+                <p>Duration :- <i>2008 to 2020</i></p>
+            </div>
+            <div data-role="collapsible">
+                <h1>Junior College</h1>
+                <p>Completed from :- <i>Chhatrapati Shahu Vidyalay Junior College</i></p>
+                <p>Admission :- <i>2020</i></p>
+                <p>Completed :- <i>2022</i></p>
+            </div>
+            <div data-role="collapsible">
+                <h1>Engineering College</h1>
+                <p>Completed from :- <i>Chhatrapati Shahu Vidyalay Junior College</i></p>
+                <p>Admission :- <i>2022</i></p>
+                <p>Completed :- <i>2026</i></p>
+            </div>
+            <div data-role="collapsible">
+                <h1>Achivements</h1>
+                <ul data-role="listview">
+                    <li>4 star in code-chef</li>
+                    <li>securing rank top 50 rank in code contest with 200+ participants</li>
+                    <li>10th Maths score 100/100</li>
+                    <li>10th Sanskrit score 100/100</li>
+                    <li>Played district level hockey</li>
+                </ul>
+            </div>
+            <div data-role="collapsible">
+                <h1>Hobbies</h1>
+                <ul data-role="listview">
+                    <li>Playing hockey</li>
+                    <li>Playing basketball</li>
+                    <li>Trekking</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="skills">
+        <div data-role="header">
+            <h1>Skills</h1>
+            <a href="#home" data-icon="home"></a>
+        </div>
+        <div data-role="content">
+            <div data-role="collapsible">
+                <h1>Languages</h1>
+                <ul>
+                    <li>C</li>
+                    <li>C++</li>
+                    <li>Java</li>
+                    <li>Python</li>
+                </ul>
+            </div>
+            <div data-role="collapsible">
+                <h1>Frontend Frameworks</h1>
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Tailwind CSS</li>
+                    <li>React</li>
+                    <li>Next</li>
+                    <li>Bootstrap</li>
+                </ul>
+            </div>
+            <div data-role="collapsible">
+                <h1>Backend Frameworks</h1>
+                <ul>
+                    <li>Node</li>
+                    <li>Express</li>
+                    <li>Prisma</li>
+                    <li>Flask</li>
+                    <li>Ajax</li>
+                    <li>Angular</li>
+                </ul>
+            </div>
+            <div data-role="collapsible">
+                <h1>Databases</h1>
+                <ul>
+                    <li>MySQL</li>
+                    <li>MongoDB</li>
+                    <li>PostgresSQL</li>
+                </ul>
+            </div>
+            <div data-role="collapsible">
+                <h1>DevOps</h1>
+                <ul>
+                    <li>Docker</li>
+                    <li>AWS</li>
+                    <li>Google Cloud</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

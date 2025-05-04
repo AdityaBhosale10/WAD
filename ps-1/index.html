@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        img {
+            width: 80px;
+            height: auto;
+            object-fit: cover;
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        @media(max-width: 600px) {
+            table, th, td {
+                font-size: 14px;
+            }
+            img {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Product Catalog</h1>
+
+<table id="productTable">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Image</th>
+            <th>Price (INR ₹)</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Products will be dynamically inserted here -->
+    </tbody>
+</table>
+
+<div class="pagination">
+    <button id="prevBtn">Previous</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn">Next</button>
+</div>
+
+<script>
+    const products = [
+        { name: "Wireless Headphones", price: 7999, description: "Noise-cancelling over ear headphones.", img: "https://via.placeholder.com/80?text=Headphones" },
+        { name: "Smartwatch", price: 12999, description: "Fitness tracking smartwatch.", img: "https://via.placeholder.com/80?text=Smartwatch" },
+        { name: "Gaming Mouse", price: 2499, description: "Ergonomic gaming mouse.", img: "https://via.placeholder.com/80?text=Mouse" },
+        { name: "Laptop Stand", price: 1999, description: "Adjustable aluminium stand.", img: "https://via.placeholder.com/80?text=Stand" },
+        // Adding more dummy products to simulate pagination
+        { name: "Bluetooth Speaker", price: 3499, description: "Portable speaker with rich bass.", img: "https://via.placeholder.com/80?text=Speaker" },
+        { name: "Keyboard", price: 2999, description: "Mechanical keyboard with RGB.", img: "https://via.placeholder.com/80?text=Keyboard" },
+        { name: "Monitor 24\"", price: 15999, description: "Full HD IPS monitor.", img: "https://via.placeholder.com/80?text=Monitor" },
+        { name: "External Hard Drive", price: 5999, description: "1TB portable hard drive.", img: "https://via.placeholder.com/80?text=HardDrive" },
+        { name: "Webcam", price: 3999, description: "HD webcam for video calls.", img: "https://via.placeholder.com/80?text=Webcam" },
+        { name: "USB Hub", price: 999, description: "4-port USB 3.0 hub.", img: "https://via.placeholder.com/80?text=USB+Hub" },
+        { name: "Fitness Band", price: 2499, description: "Smart fitness band with heart monitor.", img: "https://via.placeholder.com/80?text=Fitness+Band" },
+    ];
+
+    const rowsPerPage = 10;
+    let currentPage = 1;
+
+    function displayProducts() {
+        const tableBody = document.querySelector("#productTable tbody");
+        tableBody.innerHTML = "";
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedProducts = products.slice(start, end);
+
+        paginatedProducts.forEach(product => {
+            const row = `<tr>
+                <td>${product.name}</td>
+                <td><img src="${product.img}" alt="${product.name}"></td>
+                <td>₹${product.price.toLocaleString()}</td>
+                <td>${product.description}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+
+        document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${Math.ceil(products.length / rowsPerPage)}`;
+
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled = currentPage === Math.ceil(products.length / rowsPerPage);
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            displayProducts();
+        }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        if (currentPage < Math.ceil(products.length / rowsPerPage)) {
+            currentPage++;
+            displayProducts();
+        }
+    });
+
+    // Initialize the table
+    displayProducts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Product details</h1>
+    <div id="append"></div>
+    <script>
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET","http://localhost:3000/products",true)
+        xhr.onload=function(){
+            const response = JSON.parse(xhr.responseText)
+            const datas = response.data
+            datas.forEach(function(data){
+                document.getElementById("append").innerHTML+=`
+                    <div>
+                        <img src="${data.img}"/>
+                        <h2>Name: ${data.name}</h2>
+                        <h3>Price: ${data.price}</h3>    
+                        <hr/>
+                    </div>
+                `
+            })
+        }
+        xhr.send()
+    </script>
+</body>
+</html>
